@@ -1,0 +1,219 @@
+.navText {
+    color: white;
+}
+.navText1 {
+    color: black;
+    padding: 7px;
+}
+
+.cardBorder{
+    border: none;
+}
+.cardPosition{
+    width: fit-content;
+    margin: auto;
+    margin-top: 5%;
+}
+.signUpPos{
+    margin: auto;
+    margin-bottom: 15px;
+}
+.pwforgetPos{
+    margin: auto;
+}
+.socialLogin{
+    margin: 0 15px;
+    border: none;
+    border-radius: 50%;
+}
+.ficon{
+    width: 15px;
+}
+i:hover{
+    color: rgb(184 216 236);
+}
+.message{
+    display: inline-block;
+    width: 275px;
+    max-width: 275px;
+    border: 1px solid #e6db55;
+    background-color: #ffffe0;
+    padding: 15px 30px 15px 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.bgcolor{
+    background: rgb(184, 216, 236);
+}
+
+  body {
+    background: rgb(23, 32, 46) !important;
+    padding-top: 125px;
+  }
+.text-medium {
+    font-size: 1.125rem;
+  }
+.is-light-text {
+    color: rgb(255, 255, 255);
+}
+.is-dark {
+    background: rgb(19, 25, 36);
+    height: 60px;
+}
+.custom-dropdown {
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid rgba(193, 204, 222, 0.2);
+}
+.grid-card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1.5rem;
+    height: calc(100%);
+  }
+  .is-card-dark {
+    background: rgb(32, 42, 59) !important;
+  }
+  .is-dark-text-light {
+    color: rgb(128, 145, 171);
+  }
+  .letter-spacing {
+    letter-spacing: 0.05rem;
+  }
+  .text-small {
+    font-size: 0.875rem;
+  }
+  .text-x-large {
+    font-size: 2rem;
+  }
+  .text-large {
+    font-size: 1.25rem;
+  }
+  .is-dark-text{
+      color: black !important;
+  }
+  .chart-card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1.5rem 1.5rem .75rem 1.5rem;
+    height: calc(100%);
+  }
+  .full-height.border-left, .full-height.border-right {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  @media screen and (min-width: 991px) {
+    .full-height {
+      height: 100% !important;
+    }
+  }
+  
+  @media screen and (max-width: 567px) {
+    .full-height.border-left, .full-height.border-right {
+      border-left: none !important;
+      border-right: none !important;
+    }
+  
+    .chart-container {
+      height: 180px !important;
+    }
+  
+    .large {
+      height: 350px !important;
+    }
+  }
+  .Dropdown-menu {
+    max-height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
+    box-sizing: border-box;
+    margin-top: -1px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    widows: 100%; 
+    z-index: 1000;
+  }
+  
+  .Dropdown-control {
+    border: none;
+    color: #c1ccde;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    outline: none;
+    padding: 8px 52px 8px 10px;
+    transition: all .2s ease;
+    cursor: pointer;
+  }
+  
+  .Dropdown-arrow {
+    top: 18px;
+    border-color: #999 transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    content: " ";
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 10px;
+    width: 0;
+  }
+.Dropdown-root {
+    position: relative;
+}
+
+.Dropdown-option.is-selected, .Dropdown-option:hover {
+    background-color: #f2f9fc;
+    color: #333;
+}
+.Dropdown-option {
+    box-sizing: border-box;
+    color: rgba(51,51,51,.8);
+    cursor: pointer;
+    display: block;
+    padding: 8px 10px;
+}
+
+.nav-secondary {
+    margin-top: 65px;
+    box-shadow: 0px 2px 10px #0000006e;
+  }
+  .card-heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    min-height: 30px;
+  }
