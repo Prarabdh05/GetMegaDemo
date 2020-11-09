@@ -378,7 +378,6 @@ class revenueData extends Component {
             .catch((error) => {
                 console.log("Error getting document: ", error);
             });
-        console.log('Component DID MOUNT!');
     }
 
 
