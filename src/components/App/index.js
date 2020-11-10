@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation';
 import AccountPage from '../Account';
-import AdminPage from '../Admin';
 import HomePage from '../Home';
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
@@ -11,10 +10,14 @@ import SignInPage from '../SignIn';
 import PasswordForgetPage from '../PasswordForget';
 import * as Routes from '../../constants/routes';
 import { withAuthentication } from '../Session';
+import { PageView, initGA } from '../Tracking';
 
 class App extends Component {
 
-
+    componentDidMount() {
+        initGA('UA-182436316-1');
+        PageView();
+    }
 
     render() {
         return (
@@ -26,7 +29,6 @@ class App extends Component {
                     <Route path={Routes.SIGN_UP} component={SignUpPage} />
                     <Route path={Routes.ACCOUNT} component={AccountPage} />
                     <Route path={Routes.HOME} component={HomePage} />
-                    <Route path={Routes.ADMIN} component={AdminPage} />
                     <Route path={Routes.PASSWORD_FORGET} component={PasswordForgetPage} />
                 </div>
             </Router>

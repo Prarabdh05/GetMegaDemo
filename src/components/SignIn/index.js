@@ -6,6 +6,8 @@ import * as ROUTES from '../../constants/routes';
 import { PasswordForgetLink } from '../PasswordForget';
 import { AuthUserContext } from '../Session';
 import { Redirect } from 'react-router-dom';
+import ReactGA from "react-ga";
+import { Event } from "../Tracking";
 
 const SignInPage = () => (
     <AuthUserContext.Consumer>
@@ -35,6 +37,7 @@ class SignInGoogleBase extends Component {
     }
 
     onSubmit = event => {
+        Event("Sign In", "User Signed In through Google", "Google Sign In");
         this.props.firebase
             .doSignInWithGoogle()
             .then(socialAuthUser => {
@@ -53,7 +56,9 @@ class SignInGoogleBase extends Component {
         return (
             <span >
                 <button className="socialLogin" onClick={this.onSubmit}>
-                    <i className="fab fa-google"></i>
+                    <ReactGA.OutboundLink eventLabel="Logo" to="/" target="_self">
+                        <i className="fab fa-google"></i>
+                    </ReactGA.OutboundLink>
                 </button>
             </span>
         );
@@ -66,6 +71,7 @@ class SignInFacebookBase extends Component {
     }
 
     onSubmit = event => {
+        Event("Sign In", "User Signed In through Facebook", "Facebook Sign In");
         this.props.firebase
             .doSignInWithFacebook()
             .then(socialAuthUser => {
@@ -84,7 +90,9 @@ class SignInFacebookBase extends Component {
         return (
             <span >
                 <button className="socialLogin" onClick={this.onSubmit}>
-                    <i className="fab fa-facebook-f ficon"></i>
+                    <ReactGA.OutboundLink eventLabel="Logo" to="/" target="_self">
+                        <i className="fab fa-facebook-f ficon"></i>
+                    </ReactGA.OutboundLink>
                 </button>
             </span>
         );
@@ -98,6 +106,7 @@ class SignInFormBase extends Component {
     }
 
     onSubmit = event => {
+        Event("Sign In", "User Signed In through Email", "Email Sign In");
         const { email, password } = this.state;
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password)

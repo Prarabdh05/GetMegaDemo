@@ -10,15 +10,13 @@ import ReactFC from "react-fusioncharts";
 import Column2D from "fusioncharts/fusioncharts.charts";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import PowerCharts from 'fusioncharts/fusioncharts.powercharts';
+import { Event } from "../Tracking";
+
 ReactFC.fcRoot(FusionCharts, Charts, Maps, Column2D, PowerCharts, FusionTheme);
 
 const HomePage = () => (
-
     <RevenueDatabase />
-
-
 );
-
 
 class revenueData extends Component {
     constructor(props) {
@@ -27,6 +25,7 @@ class revenueData extends Component {
             revenue: [],
             revenuesTrendCountry: [],
             revenuesTrendCompany: [],
+            sunBurstData: [],
             dropdownOption: [],
             AppleRevenue: null,
             SamsungRevenue: null,
@@ -67,7 +66,6 @@ class revenueData extends Component {
     getData = arg => {
         const arr = this.state.revenue;
         const arrlen = arr.length;
-        let apRevenue = 0;
         let selectedValue = null;
         let AppleRevenue = 0;
         let SamsungRevenue = 0;
@@ -96,7 +94,6 @@ class revenueData extends Component {
             let value = Object.values(arr[i])[0];
 
             if (key === "Apple") {
-                apRevenue += parseInt(value[arg].toString().split(',').join(''));
                 AppleRevenue = parseInt(value[arg].toString().split(',').join(''));
                 if (maxRevenue < parseInt(value[arg].toString().split(',').join(''))) {
                     maxRevenue = parseInt(value[arg].toString().split(',').join(''));
@@ -231,6 +228,8 @@ class revenueData extends Component {
         let totalRevenue = 0;
 
         let revenuesTrendCompany = [];
+        let SunBurstData = [];
+        let comid = 1;
         for (let i = 0; i < arrlen; i++) {
             let value = Object.values(arr[i])[0];
             let key = Object.keys(arr[i])[0];
@@ -245,6 +244,14 @@ class revenueData extends Component {
                     maxRevenueCountry = USARevenue;
                     countryWithMaxRevenue = "USA";
                 }
+                let id = "2." + comid;
+                SunBurstData.push({
+                    id: id,
+                    parent: "1.1",
+                    name: key,
+                    value: parseInt(value[arg].toString().split(',').join(''))
+                });
+
 
             }
             else if (value.Country === 'India') {
@@ -253,6 +260,14 @@ class revenueData extends Component {
                     maxRevenueCountry = InRevenue;
                     countryWithMaxRevenue = "India";
                 }
+                let id = "2." + comid;
+                SunBurstData.push({
+                    id: id,
+                    parent: "1.2",
+                    name: key,
+                    value: parseInt(value[arg].toString().split(',').join(''))
+                });
+
             }
             else if (value.Country === 'UK') {
                 UKRevenue += parseInt(value[arg].toString().split(',').join(''));
@@ -260,6 +275,14 @@ class revenueData extends Component {
                     maxRevenueCountry = UKRevenue;
                     countryWithMaxRevenue = "UK";
                 }
+                let id = "2." + comid;
+                SunBurstData.push({
+                    id: id,
+                    parent: "1.3",
+                    name: key,
+                    value: parseInt(value[arg].toString().split(',').join(''))
+                });
+
             }
             else if (value.Country === 'Sweden') {
                 SwRevenue += parseInt(value[arg].toString().split(',').join(''));
@@ -267,6 +290,13 @@ class revenueData extends Component {
                     maxRevenueCountry = SwRevenue;
                     countryWithMaxRevenue = "Sweden";
                 }
+                let id = "2." + comid;
+                SunBurstData.push({
+                    id: id,
+                    parent: "1.4",
+                    name: key,
+                    value: parseInt(value[arg].toString().split(',').join(''))
+                });
             }
             else if (value.Country === 'Finland') {
                 FiRevenue += parseInt(value[arg].toString().split(',').join(''));
@@ -274,7 +304,15 @@ class revenueData extends Component {
                     maxRevenueCountry = FiRevenue;
                     countryWithMaxRevenue = "Finland";
                 }
+                let id = "2." + comid;
+                SunBurstData.push({
+                    id: id,
+                    parent: "1.5",
+                    name: key,
+                    value: parseInt(value[arg].toString().split(',').join(''))
+                });
             }
+            comid = comid + 1;
         }
         totalRevenue = USARevenue + InRevenue + UKRevenue + SwRevenue + FiRevenue;
         USAmarketCovRate = USARevenue * 100 / (totalRevenue);
@@ -282,38 +320,20 @@ class revenueData extends Component {
         SwmarketCovRate = SwRevenue * 100 / (totalRevenue);
         UKmarketCovRate = UKRevenue * 100 / (totalRevenue);
         FinmarketCovRate = FiRevenue * 100 / (totalRevenue);
-        revenuesTrendCountry.push({
-            label: "USA",
-            value: USARevenue,
-            displayValue: `${USARevenue} Revenue`
-        });
-        revenuesTrendCountry.push({
-            label: "India",
-            value: InRevenue,
-            displayValue: `${InRevenue} Revenue`
-        });
-        revenuesTrendCountry.push({
-            label: "UK",
-            value: UKRevenue,
-            displayValue: `${UKRevenue} Revenue`
-        });
-        revenuesTrendCountry.push({
-            label: "Sweden",
-            value: SwRevenue,
-            displayValue: `${SwRevenue} Revenue`
-        });
-        revenuesTrendCountry.push({
-            label: "Finland",
-            value: FiRevenue,
-            displayValue: `${FiRevenue} Revenue`
-        });
+        SunBurstData.push(
+            { id: "0.0", parent: "", name: "Countries", value: totalRevenue }, { id: "1.1", parent: "0.0", name: "USA", value: USARevenue },
+            { id: "1.2", parent: "0.0", name: "India", value: InRevenue }, { id: "1.3", parent: "0.0", name: "UK", value: UKRevenue },
+            { id: "1.4", parent: "0.0", name: "Sweden", value: SwRevenue }, { id: "1.5", parent: "0.0", name: "Finland", value: FiRevenue }
+        );
+        revenuesTrendCountry.push({ label: "USA", value: USARevenue },
+            { label: "India", value: InRevenue }, { label: "UK", value: UKRevenue },
+            { label: "Sweden", value: SwRevenue }, { label: "Finland", value: FiRevenue });
         this.setState({
             USAmarketCovRate: USAmarketCovRate,
             InmarketCovRate: InmarketCovRate,
             SwmarketCovRate: SwmarketCovRate,
             UKmarketCovRate: UKmarketCovRate,
             FinmarketCovRate: FinmarketCovRate,
-            apRevenue: apRevenue,
             revenuesTrendCountry: revenuesTrendCountry,
             revenuesTrendCompany: revenuesTrendCompany,
             totalRevenue: totalRevenue,
@@ -324,14 +344,17 @@ class revenueData extends Component {
             UKRevenue: UKRevenue,
             SwRevenue: SwRevenue,
             FiRevenue: FiRevenue,
-            AppleRevenue: AppleRevenue, SamsungRevenue: SamsungRevenue, MicromaxRevenue: MicromaxRevenue, CompactRevenue: CompactRevenue,
-            SonyRevenue: SonyRevenue, VURevenue: VURevenue, SanyoRevenue: SanyoRevenue, TCLRevenue: TCLRevenue, LenovoRevenue: LenovoRevenue,
-            HPRevenue: HPRevenue, GERevenue: GERevenue, GoogleRevenue: GoogleRevenue, FacbookRevenue: FacbookRevenue, TataRevenue: TataRevenue,
-            RelianceRevenue: RelianceRevenue, BoeingREvenue: BoeingREvenue, AirbusRevenue: AirbusRevenue,
+            AppleRevenue: AppleRevenue, SamsungRevenue: SamsungRevenue, MicromaxRevenue: MicromaxRevenue,
+            CompactRevenue: CompactRevenue, SonyRevenue: SonyRevenue, VURevenue: VURevenue,
+            SanyoRevenue: SanyoRevenue, TCLRevenue: TCLRevenue, LenovoRevenue: LenovoRevenue,
+            HPRevenue: HPRevenue, GERevenue: GERevenue, GoogleRevenue: GoogleRevenue,
+            FacbookRevenue: FacbookRevenue, TataRevenue: TataRevenue, RelianceRevenue: RelianceRevenue,
+            BoeingREvenue: BoeingREvenue, AirbusRevenue: AirbusRevenue,
             maxRevenue: maxRevenue > 1000000 ? (maxRevenue / 1000000).toFixed(2) + "M" : (maxRevenue / 1000).toFixed(2) + "K",
             companyWithMaxRevenue: companyWithMaxRevenue,
             maxRevenueCountry: maxRevenueCountry > 1000000 ? (maxRevenueCountry / 1000000).toFixed(2) + "M" : (maxRevenueCountry / 1000).toFixed(2) + "K",
-            countryWithMaxRevenue: countryWithMaxRevenue
+            countryWithMaxRevenue: countryWithMaxRevenue,
+            sunBurstData: SunBurstData
         });
 
 
@@ -340,6 +363,7 @@ class revenueData extends Component {
     updateDashboard = (event) => {
         this.getData(event.value);
         this.setState({ selectedValue: event.value });
+        Event("Revenue Insights", "Revenue Insights for " + event.value, "Revenue Insights");
     }
 
 
@@ -378,7 +402,6 @@ class revenueData extends Component {
             .catch((error) => {
                 console.log("Error getting document: ", error);
             });
-        console.log('Component DID MOUNT!');
     }
 
 
@@ -697,8 +720,13 @@ class revenueData extends Component {
                                                     subCaption: "(in given month)",
                                                     xAxisName: "Country",
                                                     yAxisName: "Revenue($)",
-                                                    "bgColor": "#B0C4DE",
-                                                    "bgAlpha": "50"
+                                                    bgColor: "#B0C4DE",
+                                                    bgAlpha: "50",
+                                                    divLineAlpha: "1",
+                                                    showAlternateHGridColor: "1",
+                                                    alternateHGridColor: "#ffcccc",
+                                                    alternateHGridAlpha: "50",
+                                                    divLineColor: "#33ccff"
                                                 },
                                                 data: this.state.revenuesTrendCountry
                                             }
@@ -729,8 +757,8 @@ class revenueData extends Component {
                                                     centerAngle: "300",
                                                     plottooltext:
                                                         "Revenue of <b>$label</b> was <b>$$valueK</b>, which was $percentValue of parent category",
-                                                    "bgColor": "#B0C4DE",
-                                                    "bgAlpha": "50"
+                                                    bgColor: "#827865",
+                                                    bgAlpha: "50"
                                                 },
                                                 category: [
                                                     {
@@ -856,6 +884,68 @@ class revenueData extends Component {
                                         }}
                                     />
 
+                                </Container>
+                            </Container>
+                        </Container>
+                    </Container >
+                    <Container className="row" style={{ minHeight: "400px" }}>
+                        <Container className="col-md-6 mb-4">
+                            <Container className="card is-card-dark chart-card">
+                                <Container className="chart-container large full-height">
+                                    <ReactFC
+                                        {...{
+                                            type: "sunburst",
+                                            width: "650",
+                                            height: "400",
+                                            dataFormat: "json",
+                                            dataSource: {
+                                                chart: {
+                                                    theme: "fusion",
+                                                    caption: "Total Revenue in given month",
+                                                    subCaption: "Click on the segments to Drill-down for region-wise revenue distribution",
+                                                    showplotborder: "1",
+                                                    numberPrefix: "$",
+                                                    bgColor: "#827865",
+                                                    bgAlpha: "50",
+                                                },
+                                                data: this.state.sunBurstData
+                                            }
+                                        }}
+                                    />
+
+                                </Container>
+                            </Container>
+                        </Container>
+                        <Container className="col-md-6 mb-4">
+                            <Container className="card is-card-dark chart-card">
+                                <Container className="chart-container large full-height">
+
+                                    <ReactFC
+                                        {...{
+                                            type: "column2D",
+                                            width: "650",
+                                            height: "400",
+                                            dataFormat: "json",
+                                            dataSource: {
+                                                chart: {
+                                                    theme: "fusion",
+                                                    caption: "Company-Wise Revenue Generation",
+                                                    subCaption: "(in given month)",
+                                                    numberPrefix: "$",
+                                                    xAxisName: "Company",
+                                                    yAxisName: "Revenue",
+                                                    bgColor: "#B0C4DE",
+                                                    bgAlpha: "50",
+                                                    divLineAlpha: "1",
+                                                    showAlternateHGridColor: "1",
+                                                    alternateHGridColor: "#ffcccc",
+                                                    alternateHGridAlpha: "50",
+                                                    divLineColor: "#33ccff"
+                                                },
+                                                data: this.state.revenuesTrendCompany
+                                            }
+                                        }}
+                                    />
                                 </Container>
                             </Container>
                         </Container>
